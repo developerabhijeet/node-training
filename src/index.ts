@@ -24,11 +24,14 @@
 //     console.log("server is running on port 3000")
 // })
 
-let express = require('express');
-let app = express();
-app.get('/',function(req:any,res:any){
-   res.send('hello nodejs')
-})
-
-app.listen(3000);
+var express = require('express');  
+var app = express();  
+app.get('/', function (req:any, res:any) {  
+  res.send('Welcome to nodejs session!');  
+});  
+var server = app.listen(3000, function () {  
+  var host = server.address().address;  
+  var port = server.address().port;  
+  console.log('Example app listening at http://%s:%s', host, port);  
+});  
 
