@@ -24,14 +24,25 @@
 //     console.log("server is running on port 3000")
 // })
 
-var express = require('express');  
-var app = express();  
-app.get('/', function (req:any, res:any) {  
-  res.send('Welcome to nodejs session!');  
-});  
-var server = app.listen(3000, function () {  
-  var host = server.address().address;  
-  var port = server.address().port;  
-  console.log('Example app listening at http://%s:%s', host, port);  
-});  
+ 
 
+// import express from "express";
+// import path from "path"
+const express = require("express");
+const path = require("path");
+const app = express();
+
+const port = 4500;
+const publicPath = path.join(__dirname, "/");
+app.use(express.static(publicPath));
+app.get("/", (req:any, res:any) => {
+  res.sendFile(`${publicPath}/index.html`);
+});
+
+// app.get("/", (req, res) => {
+//   res.send("that's good ");
+// });
+
+app.listen(port, () => {
+  console.log(`Localhost is running in host: ${port}`);
+});
