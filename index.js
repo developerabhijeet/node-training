@@ -13,7 +13,7 @@ app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // routes
-app.use("/api/v1/auth", require("./routes/route"));
+app.use("/api/v1/auth", require("./routes/auth-routes"));
 
 // listening to the express server
 app.listen(process.env.APP_PORT, () =>
