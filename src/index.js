@@ -1,10 +1,14 @@
 
 const express = require("express");
-const PORT = 3000;
+const PORT = 3001;
 const app = express();
 
 app.get("/", (req, res) => {
   res.send("Get Started! :)");
+});
+
+app.get('/test', function(req, res) {
+    res.sendFile(__dirname + "/test.html")
 });
 
 app.get("/user/:name", (req, res) => {
