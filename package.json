@@ -2,11 +2,11 @@
   "name": "training",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "nodemon index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "index.js"
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
