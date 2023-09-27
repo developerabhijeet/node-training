@@ -1,27 +1,19 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import cors from 'cors';
-import bodyParser from 'body-parser';
-
-//components
-import Connection from './database/db.js';
-import Router from './routes/route.js';
-
+const express = require("express");
+const dotenv = require("dotenv");
+const blogRoute = require("./src/routers/blog-routers");
+const connectToDatabase = require("./src/configs/db");
 
 dotenv.config();
-
 const app = express();
+connectToDatabase();
 
-app.use(cors());
-app.use(bodyParser.json({ extended: true }));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/', Router);
+// middlewares
+app.use(express.json());
 
+// routes
+app.use("/api/blog", blogRoute);
 
-const PORT = 8000;
-const username = process.env.DB_USERNAME;
-const password = process.env.DB_PASSWORD;
-
-Connection(username, password);
-
-app.listen(PORT, () => console.log(`Server is running successfully on PORT ${PORT}`));
+// app is starting on the port
+app.listen(process.env.APP_PORT, () => {
+  console.log("App is starting on port " + process.env.APP_PORT);
+});
