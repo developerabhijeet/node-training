@@ -1,48 +1,21 @@
-// const express =require('express')
-// import cookieParser from "cookie-parser";
-// import bodyParser from "body-parser";
-// import http from "http";
-// import compression from "compression";
-// import cors from "cors";
 
-// const app = express();
-
-// app.use(
-//   cors({
-//     credentials: true,
-//   })
-// );
-
-// app.use(compression());
-// app.use(cookieParser());
-// app.use(bodyParser.json());
-
-// const server = http.createServer(app);
+import express from 'express';
+import bodyParser from 'express';
+import cors from 'express';
+import dotenv from 'dotenv';
+dotenv.config();
+import userRoutes from '../routes/user'
 
 
-// server.listen(3000, () => {
-//     console.log("server is running on port 3000")
-// })
-
- 
-
-// import express from "express";
-// import path from "path"
-const express = require("express");
-const path = require("path");
+const port = process.env.PORT || 3000; // Default to 3000 if PORT is not set
+const secretKey = process.env.SECRET_KEY || 'defaultsecret'; // Default value if SECRET_KEY is not set
+const debugMode = process.env.DEBUG_MODE === 'true'; // Convert to boolean
 const app = express();
 
-const port = 4500;
-const publicPath = path.join(__dirname, "/");
-app.use(express.static(publicPath));
-app.get("/", (req:any, res:any) => {
-  res.sendFile(`${publicPath}/index.html`);
-});
-
-// app.get("/", (req, res) => {
-//   res.send("that's good ");
-// });
-
-app.listen(port, () => {
-  console.log(`Localhost is running in host: ${port}`);
-});
+app.use(cors());
+app.use(bodyParser.json());
+app.use('/', userRoutes);
+app.get("/", (req, res) => res.send("Hello express crud operation ")),
+  app.all('*', (req, res) => res.send("That route is doesn't exit "))
+app.listen(port, () =>
+  console.log(`Server is running on port : http://localhost:${port}`))
