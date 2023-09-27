@@ -1,27 +1,27 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import cors from 'cors';
-import bodyParser from 'body-parser';
+const express = require("express");
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+require('dotenv').config();
 
-//components
-import Connection from './database/db.js';
-import Router from './routes/route.js';
-
-
-dotenv.config();
+const taskRouter = require('./routes/tasks');
 
 const app = express();
+const port = process.env.PORT || 5000;
+const mongoURI = process.env.MONGODB_URI;
 
+app.use(bodyParser.json());
 app.use(cors());
-app.use(bodyParser.json({ extended: true }));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/', Router);
+app.use('/tasks',taskRouter);
 
+mongoose.connect(mongoURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+mongoose.connection.on('connected', () => {
+  console.log('Connected to MongoDB');
+});
 
-const PORT = 8000;
-const username = process.env.DB_USERNAME;
-const password = process.env.DB_PASSWORD;
-
-Connection(username, password);
-
-app.listen(PORT, () => console.log(`Server is running successfully on PORT ${PORT}`));
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
