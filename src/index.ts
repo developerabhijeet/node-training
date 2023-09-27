@@ -1,29 +1,21 @@
-import express, { request } from "express";
-import cookieParser from "cookie-parser";
-import bodyParser from "body-parser";
-import http from "http";
-import compression from "compression";
-import cors from "cors";
 
+import express from 'express';
+import bodyParser from 'express';
+import cors from 'express';
+import dotenv from 'dotenv';
+dotenv.config();
+import userRoutes from '../routes/user'
+
+
+const port = process.env.PORT || 4500; // Default to 3000 if PORT is not set
+const secretKey = process.env.SECRET_KEY || 'defaultsecret'; // Default value if SECRET_KEY is not set
+const debugMode = process.env.DEBUG_MODE === 'true'; // Convert to boolean
 const app = express();
 
-
-app.use(
-  cors({
-    credentials: true,
-  })
-);
-app.get('/',(req:any , res:any)=>{
-    res.send({message:"hello"})
-}
-)
-app.use(compression());
-app.use(cookieParser());
+app.use(cors());
 app.use(bodyParser.json());
-
-const server = http.createServer(app);
-
-
-server.listen(4500, () => {
-    console.log("server is running on port 4500")
-})
+app.use('/', userRoutes);
+app.get("/", (req, res) => res.send("Hello")),
+  app.all('*', (req, res) => res.send("Routes doesn't exist"))
+app.listen(port, () =>
+  console.log(`Server is running on port : http://localhost:${port}`))
