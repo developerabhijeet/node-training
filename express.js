@@ -4,6 +4,7 @@ const app = express();
 app.get("/test", (req, res) => {
   res.send("Hello all");
 });
+console.log("__dirname", __dirname, process.cwd());
 app.get("/user/:name", (req, res) => {
   res.json({ hello: req.params.name });
 });
