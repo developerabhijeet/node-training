@@ -6,9 +6,9 @@ export const getAllUsers = (req: any, res: any) => {
 }
 
 export const getUser = (req: any, res: any) => {
-  console.log(req.params)
-  const singleUser = user.filter((user: any) => user.id === req.params)
-  const userData = singleUser.length > 0 ? singleUser : { "message": 'No data found!'}
+  const singleUser = user.find((user: any) => user.id === req.params.id)
+  console.log(req.params, 'get user', singleUser);
+  const userData = singleUser !== undefined  ? singleUser : { "message": 'No data found!'}
   res.send(userData).status(200);
 }
 
@@ -19,17 +19,17 @@ export const createUser = (req: any, res: any) => {
 }
 
 export const updateUser = (req: any, res: any) =>  {
-  console.log(req.params)
-  const updateUser = user.map((user: any) => user.id == req.params ? req.body : user)
-  user.push(updateUser)
+  const updateUser = user.map((sUser: any) => sUser.id == req.params.id ? req.body : sUser)
+  console.log(req.params, req.body,'update', updateUser)
   const userData = updateUser.length > 0 ? updateUser : { "message": 'No user found!'}
+  user=updateUser
   res.send(userData).status(200);
 }
 
 export const deleteUser = (req: any, res: any) =>  {
-  console.log(req.params)
-  const filterUsers = user.filter((user: any) => user.id !== req.params)
-  user.push(filterUsers)
-  const userData = filterUsers.length > 0 ? { "message": 'user deleted successfully'} : { "message": 'No user found!'}
+  const filterUsers = user.filter((user: any) => user.id !== req.params.id)
+  console.log(req.params, 'delete', filterUsers)
+  const userData = filterUsers.length !== user.length ? { "message": 'user deleted successfully'} : { "message": 'No user found!'}
+  user =  filterUsers
   res.send(userData).status(200);
 }
