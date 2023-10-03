@@ -1,24 +1,23 @@
-import "./src/config/db.js";
+import "./src/config/db.js"
 import express from "express";
+import dotenv from "dotenv";
 import cors from "cors";
 import bodyParser from "body-parser";
-import userRouter from "./src/router/userRoute.js";
-import authRouter from "./src/router/auth.js";
-
-import recordRouter from "./src/router/educationRouter.js";
+import router from "./src/routes/products.js";
+//configaration for local enviromment
+dotenv.config();
+//define port here
+const port = process.env.PORT || 8000;
 
 const app = express();
-
 app.use(cors());
 
-const PORT = process.env.PORT || 8000;
 app.use(bodyParser.json({ extended: true }));
 
 app.use(express.urlencoded({ extended: true }));
 
-app.use(userRouter);
-app.use(authRouter);
-app.use(recordRouter);
-app.listen(PORT, () =>
-  console.log(`Your server is running successfully on PORT ${PORT}`)
+app.use(router);
+
+app.listen(port, () =>
+  console.log(`Your server is running successfully on PORT ${port}`)
 );

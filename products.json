@@ -1,0 +1,44 @@
+[
+  {
+    "name": "iphoneX",
+    "price": 15400,
+    "company": "apple"
+  },
+  {
+    "name": "iphone10",
+    "price": 1154,
+    "company": "apple"
+  },
+  {
+    "name": "iphone11",
+    "price": 154,
+    "featured": true,
+    "company": "apple"
+  },
+  {
+    "name": "iphone13",
+    "price": 154,
+    "featured": true,
+    "company": "apple"
+  },
+  {
+    "name": "POCOX3",
+    "price": 50100,
+    "company": "redmi"
+  },
+  {
+    "name": "POCOX2",
+    "price": 50100,
+    "company": "redmi"
+  },
+  {
+    "name": "SamsungA51",
+    "price": 50100,
+    "company": "samsung"
+  },
+  {
+    "name": "SamsungA31",
+    "price": 15000,
+    "company": "samsung"
+  }
+]
