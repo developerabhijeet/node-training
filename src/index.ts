@@ -2,10 +2,11 @@ import express from "express";
 import bodyParser from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-dotenv.config();
 import productRoutes from "../routes/product";
 
-const PORT = process.env.PORT || 4500; // Default to 3000 if PORT is not set
+const app = express();
+dotenv.config();
+const PORT = process.env.PORT || 4500; 
 const MONGOURL = process.env.MONGO_URL;
 mongoose
   .connect(MONGOURL)
@@ -17,7 +18,7 @@ mongoose
   })
   .catch((error) => console.log(error));
 
-const app = express();
+
 
 app.use(bodyParser.json());
 app.use("/", productRoutes);

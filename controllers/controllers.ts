@@ -1,24 +1,18 @@
-import { v4 as uuidv4 } from "uuid";
 import { Request, Response } from "express";
-import bcrypt from "bcryptjs";
 import Product from "../modal/productModel";
-import jwt from "jsonwebtoken";
 
-export const fetch = async (req: Request, res: Response) => {
+
+export const fetchproduct = async (req: Request, res: Response) => {
   try {
     const { page = 1, limit = 5 } = req.query;
-
     const pageNumber = parseInt(page as string);
     const limitNumber = parseInt(limit as string);
-
     const totalProducts = await Product.countDocuments();
     const totalPages = Math.ceil(totalProducts / limitNumber);
-
     const products = await Product.find()
       .skip((pageNumber - 1) * limitNumber)
       .limit(limitNumber)
       .exec();
-
     if (products.length === 0) {
       return res.status(404).json({ message: "Products not found" });
     }

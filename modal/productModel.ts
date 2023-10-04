@@ -7,5 +7,4 @@ const productSchema = new mongoose.Schema({
   product_id: { type: Number, unique: true },
   token: { type: String },
 });
-
 export default mongoose.model("Product", productSchema);
