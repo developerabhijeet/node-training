@@ -1,48 +1,25 @@
-// const express =require('express')
-// import cookieParser from "cookie-parser";
-// import bodyParser from "body-parser";
-// import http from "http";
-// import compression from "compression";
-// import cors from "cors";
+import express from "express";
+import bodyParser from "express";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+dotenv.config();
+import productRoutes from "../routes/product";
 
-// const app = express();
+const PORT = process.env.PORT || 4500; // Default to 3000 if PORT is not set
+const MONGOURL = process.env.MONGO_URL;
+mongoose
+  .connect(MONGOURL)
+  .then(() => {
+    console.log("DB is connected successfully");
+    app.listen(PORT, () =>
+      console.log(`Server is running on PORT : http://localhost:${PORT}`)
+    );
+  })
+  .catch((error) => console.log(error));
 
-// app.use(
-//   cors({
-//     credentials: true,
-//   })
-// );
-
-// app.use(compression());
-// app.use(cookieParser());
-// app.use(bodyParser.json());
-
-// const server = http.createServer(app);
-
-
-// server.listen(3000, () => {
-//     console.log("server is running on port 3000")
-// })
-
- 
-
-// import express from "express";
-// import path from "path"
-const express = require("express");
-const path = require("path");
 const app = express();
 
-const port = 4500;
-const publicPath = path.join(__dirname, "/");
-app.use(express.static(publicPath));
-app.get("/", (req:any, res:any) => {
-  res.sendFile(`${publicPath}/index.html`);
-});
-
-// app.get("/", (req, res) => {
-//   res.send("that's good ");
-// });
-
-app.listen(port, () => {
-  console.log(`Localhost is running in host: ${port}`);
-});
+app.use(bodyParser.json());
+app.use("/", productRoutes);
+app.get("/", (req, res) => res.send("Hello express crud operation ")),
+  app.all("*", (req, res) => res.send("That route is doesn't exit "));
