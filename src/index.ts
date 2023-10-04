@@ -21,5 +21,5 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use("/", productRoutes);
-app.get("/", (req, res) => res.send("Hello express crud operation ")),
+app.get("/", (req, res) => res.send("Crud Operation ")),
   app.all("*", (req, res) => res.send("That route is doesn't exit "));
