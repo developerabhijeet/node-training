@@ -1,27 +1,14 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import cors from 'cors';
-import bodyParser from 'body-parser';
-
-//components
-import Connection from './database/db.js';
-import Router from './routes/route.js';
-
-
-dotenv.config();
+const express = require("express");
+const dataBaseConnection = require("./src/utils/db-config");
 
 const app = express();
+dataBaseConnection();
 
-app.use(cors());
-app.use(bodyParser.json({ extended: true }));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/', Router);
+// middlewares
+app.use(express.json());
 
+app.get("/api", require("./src/routers/product-routers"));
 
-const PORT = 8000;
-const username = process.env.DB_USERNAME;
-const password = process.env.DB_PASSWORD;
-
-Connection(username, password);
-
-app.listen(PORT, () => console.log(`Server is running successfully on PORT ${PORT}`));
+app.listen(8000, () => {
+  console.log("Server is running on port 8000");
+});
