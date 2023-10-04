@@ -1,7 +1,6 @@
 const Product = require("../models/products");
 
 const getAllProducts = async (req, res) => {
-  //Adding filter here by company and name of products
   const { company, name } = req.query;
   const queryObject = {};
   if (company) {
@@ -10,13 +9,12 @@ const getAllProducts = async (req, res) => {
   if (name) {
     queryObject.name = name;
   }
-  //add pagination logic here
   let apiData = Product.find(queryObject);
   let page = Number(req.query.page) || 1;
-  let limit = Number(req.query.limit) || 10;
+  let productLimit = Number(req.query.productLimit) || 10;
 
-  let skip = (page - 1) * limit;
-  apiData = apiData.skip(skip).limit(limit);
+  let skip = (page - 1) * productLimit;
+  apiData = apiData.skip(skip).productLimit(productLimit);
 
   const myData = await apiData;
   res.status(200).json({ myData, nbHits: myData.length });
