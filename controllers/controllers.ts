@@ -1,8 +1,5 @@
-import { v4 as uuidv4 } from "uuid";
 import { Request, Response } from "express";
-import bcrypt from "bcryptjs";
 import Product from "../modal/productModel";
-import jwt from "jsonwebtoken";
 
 export const fetch = async (req: Request, res: Response) => {
   try {
