@@ -6,10 +6,10 @@ export interface IItem extends Document {
   price: number;
 }
 
-const itemSchema: Schema = new Schema({
+const productsSchema: Schema = new Schema({
   name: { type: String, required: true },
   category: { type: String, required: true },
   price: { type: Number, required: true },
 });
 
-export default mongoose.model<IItem>('Item', itemSchema);
+export default mongoose.model<IItem>('Product', productsSchema);
