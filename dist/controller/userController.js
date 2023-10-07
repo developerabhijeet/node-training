@@ -10,9 +10,10 @@ const getUsers = (req, res) => {
 };
 exports.getUsers = getUsers;
 const getUserById = (req, res) => {
+    console.log("cehck res", res);
     const itemId = req.params.id;
-    const item = user_json_1.default.find((i) => i.id === itemId);
-    console.log("item id here", itemId, user_json_1.default);
+    console.log("Cehck ide here", itemId);
+    let item = user_json_1.default.find((i) => i.id === Number(itemId));
     if (!item) {
         return res.status(404).json({ message: "Item not found" });
     }

@@ -5,11 +5,8 @@ export const getUsers = (req: any, res: any) => {
 };
 
 export const getUserById = (req: any, res: any) => {
-  
   const itemId = req.params.id;
-  const item = getData.find((i: any) => i.id === itemId);
-  console.log("item id here",itemId,getData);
-
+  let item = getData.find((i: any) => i.id === Number(itemId));
   if (!item) {
     return res.status(404).json({ message: "Item not found" });
   }
@@ -26,7 +23,9 @@ export const createUser = (req: any, res: any) => {
 export const updateUser = (req: any, res: any) => {
   const itemId = req.params.id;
   const updatedItem = req.body;
-  const index = getData.findIndex((i: any) => i.id === itemId);
+  const index = getData.findIndex(
+    (i: { id: number; name: string; description: string }) => i.id === itemId
+  );
   if (index === -1) {
     return res.status(404).json({ message: "Item not found" });
   }
